@@ -1,0 +1,34 @@
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app=angular.module("tryapp",[]);
+        app.controller("myctrl",function($scope){
+            $scope.mylist=["Apple","Banana","Carrot"];
+            $scope.addition=function(){
+                $scope.errorText=""
+                if(!$scope.addme){return}
+                if($scope.mylist.indexOf($scope.addme)==-1)
+                {
+                    $scope.mylist.push($scope.addme);
+                }
+                else
+                {
+                    $scope.errorText="item already exists";
+                }
+            }
+            $scope.removeitem=function(x)
+            {
+                $scope.mylist.splice(x,1);
+            }
+        });
+    </script>
+    <body ng-app="tryapp" ng-controller="myctrl">
+        <h1>Shopping List</h1>
+        <ul>
+            <li ng-repeat="x in mylist"><big>{{x}}</big><span ng-click="removeitem($index)"><small>x</small></span></li>
+        </ul>
+        enter the item to be added<input type="text" ng-model="addme">
+        <button ng-click="addition()">Add</button>
+        {{errorText}}
+    </body>
+</html>
